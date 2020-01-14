@@ -15,25 +15,47 @@ namespace CircustreinAlgorithme
             return string.Join(",", wagonAnimals);
         }
 
-        public List<Animal> LookIfAnimalFits(List<Animal> animals)
+        public bool LookIfAnimalFits(List<Animal> animals)
         {
             if (!wagonAnimals.Any())
             {
-                return animals;
+                wagonAnimals.Add(animals.First());
+                animals.Remove(animals.First());
+                return true;
             }
             if (animals[0].race == Animal.Race.Carnivore)
             {
-                return null;
+                return false;
             }
             else
             {
                 if (wagonAnimals[0].race == Animal.Race.Carnivore)
                 {
-                    return animals.Where(a => a.size + wagonAnimals.Sum(a => a.size) <= 10 && a.size > wagonAnimals[0].size).ToList();
+                    try
+                    {
+                        var animal = animals.Where(a => a.size + wagonAnimals.Sum(a => a.size) <= 10 && a.size > wagonAnimals[0].size).First();
+                        wagonAnimals.Add(animal);
+                        animals.Remove(animal);
+                        return true;
+                    }
+                    catch
+                    {
+                        return false;
+                    }
                 }
                 else
                 {
-                    return animals.Where(a => a.size + wagonAnimals.Sum(a => a.size) <= 10).ToList();
+                    try
+                    {
+                        var animal = animals.Where(a => a.size + wagonAnimals.Sum(a => a.size) <= 10).First();
+                        wagonAnimals.Add(animal);
+                        animals.Remove(animal);
+                        return true;
+                    }
+                    catch
+                    {
+                        return false;
+                    }
                 }
             }
         }

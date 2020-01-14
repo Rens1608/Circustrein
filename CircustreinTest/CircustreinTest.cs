@@ -17,51 +17,25 @@ namespace CircustreinTest
         }
 
         [TestMethod]
-        public void Empty_List_Should_Return_Empty_List()
+        public void Empty_List_Should_Return_False()
         {
             //arrange
             List<Animal> input = new List<Animal>();
             //act
-            var output = wagon.LookIfAnimalFits(input);
+            bool output = wagon.LookIfAnimalFits(input);
             //assert
-            CollectionAssert.AreEqual(input, output);
+            Assert.AreEqual(false, output);
         }
 
         [TestMethod]
-        public void One_Animal_In_List_Return_One_Animal()
+        public void One_Animal_In_List_Return_True()
         {
             //arrange
             List<Animal> input = new List<Animal>() { new Animal(3, Animal.Race.Carnivore) };
             //act
-            var output = wagon.LookIfAnimalFits(input);
+            bool output = wagon.LookIfAnimalFits(input);
             //assert
-            CollectionAssert.AreEqual(input, output);
-        }
-
-        [TestMethod]
-        public void Two_Animals_In_List_Return_One_Animal()
-        {
-            //arrange
-            List<Animal> input = new List<Animal>() { new Animal(5, Animal.Race.Herbivore), new Animal(3, Animal.Race.Herbivore) };
-            wagon.wagonAnimals.Add(new Animal(3, Animal.Race.Carnivore));
-            //act
-            var output = wagon.LookIfAnimalFits(input);
-            var expected = new List<Animal>() { new Animal(5, Animal.Race.Herbivore) };
-            //assert
-            Assert.IsTrue(output.SequenceEqual(expected, new MyAnimalEqualityComparer()));
-        }
-
-        [TestMethod]
-        public void Two_Animals_In_List_Return_Two_Animals()
-        {
-            //arrange
-            List<Animal> input = new List<Animal>() { new Animal(5, Animal.Race.Herbivore), new Animal(3, Animal.Race.Herbivore) };
-            wagon.wagonAnimals.Add(new Animal(1, Animal.Race.Carnivore));
-            //act
-            var output = wagon.LookIfAnimalFits(input);
-            var expected = new List<Animal>() { new Animal(5, Animal.Race.Herbivore) , new Animal(3, Animal.Race.Herbivore)};
-            //assert
-            Assert.IsTrue(output.SequenceEqual(expected, new MyAnimalEqualityComparer()));
+            Assert.AreEqual(true, output);
         }
     }
 }

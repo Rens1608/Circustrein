@@ -19,16 +19,11 @@ namespace CircustreinAlgorithme
                 {
                     break;
                 }
-                if (wagons[i].LookIfAnimalFits(animals) == null || !wagons[i].LookIfAnimalFits(animals).Any())
-                {
-                    AddWagon();
-                }
-                else
-                {
-                    var selectedAnimal = wagons[i].LookIfAnimalFits(animals).FirstOrDefault();
-                    wagons[i].wagonAnimals.Add(selectedAnimal);
-                    animals.Remove(selectedAnimal);
-                }
+                wagons[i].LookIfAnimalFits(animals);
+            }
+            if (animals.Any())
+            {
+                AddWagon();
             }
         }
 
